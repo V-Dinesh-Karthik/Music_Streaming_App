@@ -2,8 +2,11 @@ import express from "express";
 import cors from 'cors'
 import dotenv from 'dotenv'
 import mongoose from "mongoose";
+import userRoute from './routes/userRoute'
+
 
 dotenv.config({path: './.env'})
+
 
 const app = express()
 const PORT = process.env.PORT
@@ -31,9 +34,13 @@ app.get('/', (req,res) => {
     res.status(200).send('Hello World!')
 })
 
-app.get('/hi',(req,res) => {
-    res.send('HIIIIIIII')
+app.get('/api', (req, res) => {
+    res.status(201).json({message: "Welcome to Auth"})
 })
+
+app.use('/api/auth',userRoute)
+
+
 
 app.listen(PORT,() => {
     console.log(`App is listening on port ${PORT}`)
